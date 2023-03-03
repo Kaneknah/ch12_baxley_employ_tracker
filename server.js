@@ -65,17 +65,26 @@ function starterPrompt() {
 }
 
 function viewEmployees() {
-	console.log("Employees")
-	let query e
+	console.log("Employees");
+
+	var query = `SELECT e.id, e.first_name, e.last_name, r.title, d.name AS department, r.salary, CONCAT(m.first_name,' ',m.last_name) AS manager FROM employee e LEFT JOIN role r ON e.role_id = r.id LEFT JOIN department d on d.id = r.department_id LEFT JOIN employee m ON m.id = e.manager_id`;
+
+	connection.query(query, function (err, res) {
+		if (err) throw err;
+
+		console.table(res);
+
+		starterPrompt();
+	});
 }
 
 function viewEmployeesByManager() {}
 
 function viewAllDepartments() {
-	let query = 'SELECT * from department'
-	db.query(query, function(err, res){
-		if(err)throw err;
-	})
+	let query = "SELECT * from department";
+	db.query(query, function (err, res) {
+		if (err) throw err;
+	});
 }
 
 function addEmployee() {}
