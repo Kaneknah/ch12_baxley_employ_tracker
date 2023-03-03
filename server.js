@@ -2,11 +2,11 @@ const mysql = require("mysql2");
 const inquirer = require("inquirer");
 require("console.table");
 
-const connection = mysql.createconnection({
+const connection = mysql.createConnection({
 	host: "localhost",
 	port: "3306",
 	user: "root",
-	password: "Password123",
+	password: "Superman1!",
 	database: "employee_db",
 });
 
@@ -23,7 +23,7 @@ function starterPrompt() {
 			message: "What would you like to do?",
 			choices: [
 				"View Employees",
-				"View Employees by Department",
+				"View All Departments",
 				"Add Employee",
 				"Remove Employees",
 				"Update Employee Role",
@@ -37,8 +37,8 @@ function starterPrompt() {
 					viewEmployee();
 					break;
 
-				case "View Employees by Department":
-					viewEmployeeByDepartment();
+				case "View All Department":
+					viewAllDepartment();
 					break;
 
 				case "Add Employee":
@@ -64,11 +64,19 @@ function starterPrompt() {
 		});
 }
 
-function viewEmployees() {}
+function viewEmployees() {
+	console.log("Employees")
+	let query e
+}
 
 function viewEmployeesByManager() {}
 
-function viewEmployeesByDepartment() {}
+function viewAllDepartments() {
+	let query = 'SELECT * from department'
+	db.query(query, function(err, res){
+		if(err)throw err;
+	})
+}
 
 function addEmployee() {}
 
