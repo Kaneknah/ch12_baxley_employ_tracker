@@ -23,11 +23,12 @@ function starterPrompt() {
 			message: "What would you like to do?",
 			choices: [
 				"View Employees",
-				"View All Departments",
+				"View Roles",
+				"View Departments",
 				"Add Employee",
-				"Remove Employees",
-				"Update Employee Role",
 				"Add Role",
+				"Add Department",
+				"Update Employee Role",
 				"End",
 			],
 		})
@@ -37,24 +38,28 @@ function starterPrompt() {
 					viewEmployee();
 					break;
 
-				case "View All Department":
-					viewAllDepartment();
+				case "View Roles":
+					viewRoles();
+					break;
+
+				case "View Departments":
+					viewDepartments();
 					break;
 
 				case "Add Employee":
 					addEmployee();
 					break;
 
-				case "Remove Employees":
-					removeEmployees();
+				case "Add Role":
+					addRoles();
+					break;
+
+				case "Add Department":
+					addDepartment();
 					break;
 
 				case "Update Employee Role":
 					updateEmployeeRole();
-					break;
-
-				case "Add Role":
-					addRole();
 					break;
 
 				case "End":
@@ -77,10 +82,9 @@ function viewEmployees() {
 		starterPrompt();
 	});
 }
+function viewRoles() {}
 
-function viewEmployeesByManager() {}
-
-function viewAllDepartments() {
+function viewDepartments() {
 	let query = "SELECT * from department";
 	db.query(query, function (err, res) {
 		if (err) throw err;
@@ -88,5 +92,7 @@ function viewAllDepartments() {
 }
 
 function addEmployee() {}
+function addRole() {}
+function addDepartment() {}
 
-function employeeData() {}
+function updateEmployeeRole() {}
