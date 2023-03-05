@@ -1,26 +1,25 @@
 {
-  "dependencies": {
-    "console.table": "^0.10.0",
-    "inquirer": "^8.2.4",
-    "mysql": "^2.18.1",
-    "mysql2": "^3.1.2"
-  },
-  "scripts": {
-    "start": "node server.js"
-  },
-  "name": "ch12_baxley_employ_tracker",
-  "description": "App for tracking employees for an employer",
-  "version": "1.0.0",
-  "main": "server.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Kaneknah/ch12_baxley_employ_tracker.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Kaneknah/ch12_baxley_employ_tracker/issues"
-  },
-  "homepage": "https://github.com/Kaneknah/ch12_baxley_employ_tracker#readme"
+	"dependencies": {
+		"console.table": "^0.10.0",
+		"inquirer": "^8.2.4",
+		"mysql2": "^3.1.2"
+	},
+	"scripts": {
+		"start": "node server.js"
+	},
+	"name": "ch12_baxley_employ_tracker",
+	"description": "App for tracking employees for an employer",
+	"version": "1.0.0",
+	"main": "server.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Kaneknah/ch12_baxley_employ_tracker.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Kaneknah/ch12_baxley_employ_tracker/issues"
+	},
+	"homepage": "https://github.com/Kaneknah/ch12_baxley_employ_tracker#readme"
 }
