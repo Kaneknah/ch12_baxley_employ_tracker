@@ -122,13 +122,20 @@ function addEmployee() {
 			},
 			{
 				type: "input",
-				name: "new_role",
+				name: "last_name",
+				message: "What is the Employee's Last Name Name?",
+			},
+			{
+				type: "list",
+				name: "role",
 				message: "what is the Employee's role ID 1-8",
+				choices: ["1", "2", "3", "4", "5", "6", "7", "8"],
 			},
 			{
 				type: "list",
 				name: "manager",
-				message: "what is the Employee's Manage ID",
+				message:
+					"What is the Employee's Manage ID. 1. James Baxley, 3. CJ Paskowski, 5. Titan Brash, 7. Alex Waters.",
 				choices: ["1", "3", "5", "7"],
 			},
 		])

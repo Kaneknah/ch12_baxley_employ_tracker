@@ -16,11 +16,11 @@ VALUES ("Sales Lead", 150000, 1),
        ("Government Liason", 250000, 4);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
-VALUES ("Jane", "Doe", 1, NULL),
-       ("Norah", "Rios", 2, 1),
-       ("Kate", "Mellor", 3, NULL),
-       ("Shiv", "Betts", 4, 3),
-       ("Leen", "Hurst", 5, NULL),
-       ("Gary", "Leer", 6, 5),
-       ("Tom", "Cruise", 7, NULL),
-       ("Daisy", "Hooper", 8, 7);
+VALUES ("James", "Baxley", 1, NULL),
+       ("Tim", "Rollands", 2, 1),
+       ("CJ", "Paskowski", 3, NULL),
+       ("Liberty", "Homes", 4, 3),
+       ("Titan", "Brash", 5, NULL),
+       ("Ted", "Harper", 6, 5),
+       ("Alex", "Waters", 7, NULL),
+       ("Destiny", "Knight", 8, 7);
