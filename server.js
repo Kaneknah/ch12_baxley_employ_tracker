@@ -155,7 +155,42 @@ function addEmployee() {
 		});
 }
 
-function addRole() {}
+function addRole() {
+	console.log("Please add a New Role");
+	inquirer
+		.prompt([
+			{
+				type: "input",
+				name: "title",
+				message: "What is the title of the new Role?",
+			},
+			{
+				type: "input",
+				name: "salary",
+				message: "what is the Role's Salary",
+			},
+			{
+				type: "list",
+				name: "department_id",
+				message:
+					"What is the Role's department ID. 1. Sales , 2. Engineering, 3. Finance, 4. Legal ",
+				choices: ["1", "2", "3", "4"],
+			},
+		])
+		.then((answer) => {
+			connection.query("INSERT INTO role SET ?", {
+				title: answer.title,
+				salary: answer.salary,
+				department_id: answer.department_id,
+			});
+			let query = "SELECT * FROM role";
+			connection.query(query, function (err, res) {
+				if (err) throw err;
+				console.table("Roles", res);
+				starterPrompt();
+			});
+		});
+}
 function addDepartment() {}
 function updateEmployeeRole() {}
 
