@@ -191,8 +191,73 @@ function addRole() {
 			});
 		});
 }
-function addDepartment() {}
-function updateEmployeeRole() {}
+function addDepartment() {
+	console.log("Please add a New Department");
+	inquirer
+		.prompt([
+			{
+				type: "input",
+				name: "title",
+				message: "what is the name of the new Department?",
+			},
+		])
+		.then((answer) => {
+			connection.query("INSERT INTO role SET ?", {
+				title: answer.title,
+				salary: answer.salary,
+				department_id: answer.department_id,
+			});
+			let query = "SELECT * FROM role";
+			connection.query(query, function (err, res) {
+				if (err) throw err;
+				console.table("Roles", res);
+				starterPrompt();
+			});
+		});
+}
+function updateEmployeeRole() {
+	console.log("Please Update an Employee");
+
+	let query = `SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee employee JOIN role role ON employee.role_id = role.id JOIN department department ON department.id = role.department_id JOIN employee manager ON manager.id = employee.manager_id`;
+
+	connection.query(query, function (err, res) {
+		if (err) throw err;
+
+		let roleList = res.map(({ id, title, salary }) => ({
+			value: id,
+			title: `${title}`,
+			salary: `${salary}`,
+		}));
+		updateChoices(roleList);
+	});
+}
+function updateChoices(roleList) {
+	inquirer
+		.prompt([
+			{
+				type: "list",
+				name: "update_role",
+				message: "Which Employee would you like to update?",
+				choices: roleList,
+			},
+		])
+		.then((answer) => {
+			connection.query("UPDATE employee SET role_id = ? Where id = ?", {
+				role_id: answer.update_role,
+				employee_id: answer.employee_id,
+			});
+			let query = "SELECT * FROM role";
+			connection.query(query, function (err, res) {
+				if (err) throw err;
+				console.table("Updated Roles", res);
+				employeeSelector(updateChoices);
+			});
+		});
+}
+
+// function deleteEmployee(){
+
+// }
 
 function connectionEnd() {
 	connection.end();
