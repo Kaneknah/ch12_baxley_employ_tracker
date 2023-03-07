@@ -79,6 +79,7 @@ function starterPrompt() {
 function viewEmployees() {
 	console.log("Employees");
 
+	//The Variable query will select the specifc idata from the database that is needed to render all the employees.
 	let query =
 		'SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name," ",manager.last_name) AS manager FROM employee employee LEFT JOIN role role ON employee.role_id = role.id LEFT JOIN department department on department.id = role.department_id LEFT JOIN employee manager ON manager.id = employee.manager_id';
 
@@ -90,7 +91,7 @@ function viewEmployees() {
 		starterPrompt();
 	});
 }
-
+//Function for rendering the specific items for viewing all roles.
 function viewRoles() {
 	let query = "SELECT * FROM role";
 	connection.query(query, function (err, res) {
@@ -101,7 +102,7 @@ function viewRoles() {
 		starterPrompt();
 	});
 }
-
+//Function for rendering the specific items for viewing all Employees.
 function viewDepartments() {
 	let query = "SELECT * from department";
 	connection.query(query, function (err, res) {
@@ -110,7 +111,7 @@ function viewDepartments() {
 		starterPrompt();
 	});
 }
-
+// functions for adding a new employee to the database
 function addEmployee() {
 	console.log("Please add a New Employee");
 	inquirer
@@ -191,6 +192,8 @@ function addRole() {
 			});
 		});
 }
+
+//Function for adding a new Department
 function addDepartment() {
 	console.log("Please add a New Department");
 	inquirer
@@ -215,63 +218,71 @@ function addDepartment() {
 			});
 		});
 }
+
+//Updates and Employee Role
 function updateEmployeeRole() {
 	console.log("Please Update an Employee");
-
-	// let query = "SELECT * FROM role";
-
-	// connection.query(query, function (err, res) {
-	// 	if (err) throw err;
-
-	// 	let roleList = res.map(({ id, title, salary }) => ({
-	// 		value: id,
-	// 		title: `${title}`,
-	// 		salary: `${salary}`,
-	// 	}));
-	let query = "SELECT * FROM employee";
-	connection.query(query, function (err, res) {
+	const query = `SELECT * FROM employee ORDER BY last_name`;
+	connection.query(query, (err, res) => {
 		if (err) throw err;
-		let employeeList = res.map(({ id, first_name, last_name }) => ({
+		//created the const employeeList that will be utilized to give a list of employees for the user to choose.
+		const employeeList = res.map(({ id, first_name, last_name }) => ({
 			value: id,
-			first_name: `${first_name}`,
-			last_name: `${last_name}`,
+			name: `${first_name} ${last_name}`,
 		}));
+		//    console.log(employeeList)
+		return inquirer
+			.prompt([
+				{
+					name: "title",
+					type: "list",
+					message: "select employee to update their role",
+					choices: employeeList,
+				},
+			])
+			.then((answers) => {
+				// console.log(employeeList)
+				const query = `SELECT * FROM role`;
+				connection.query(query, (err, res) => {
+					if (err) throw err;
+					//created the const roleList that will be utilized to give a list of the roles for the user to choose.
+					const roleList = res.map(({ id, title, salary }) => ({
+						value: id,
+						title: `${title}`,
+						salary: `${salary}`,
+						name: `${title}`,
+					}));
 
-		inquirer.prompt([
-			{
-				type: "list",
-				name: "select_employee",
-				message: "Which Employee would you like to update?",
-				choices: employeeList,
-			},
-			// {
-			// 	type: "list",
-			// 	name: "update_role",
-			// 	message: "Which Employee would you like to update?",
-			// 	choices: roleList,
-			// },
-		]);
-		console.log(employeeList);
+					return (
+						inquirer
+							.prompt([
+								{
+									type: "list",
+									name: "role",
+									message: "select role",
+									choices: roleList,
+								},
+							])
+
+							//Updated the provided data to the role_id
+							.then((ans) => {
+								const query = `UPDATE employee SET role_id = ? WHERE id = ?`;
+								const params = [ans.role, answers.title];
+								// console.log(answers.title)
+								// console.log(ans.role)
+								connection.query(query, params, (err, res) => {
+									if (err) throw err;
+									starterPrompt();
+								});
+							})
+					);
+				});
+			});
 	});
-	// .then((answer) => {
-	// 	connection.query("UPDATE employee SET role_id = ? Where id = ?", {
-	// 		role_id: answer.update_role,
-	// 		employee_id: answer.employee_id,
-	// 	});
-	// 	let query = "SELECT * FROM role";
-	// 	connection.query(query, function (err, res) {
-	// 		if (err) throw err;
-	// 		console.table("Updated Roles", res);
-	// 		employeeSelector(updateChoices);
-	// 	});
-	// });
-	// });
 }
-
 // function deleteEmployee(){
 
-// }
-
+//Ends the terminal application
 function connectionEnd() {
 	connection.end();
 	console.log("Thank You");
