@@ -218,41 +218,54 @@ function addDepartment() {
 function updateEmployeeRole() {
 	console.log("Please Update an Employee");
 
-	let query = `SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, CONCAT(manager.first_name, ' ', manager.last_name) AS manager FROM employee employee JOIN role role ON employee.role_id = role.id JOIN department department ON department.id = role.department_id JOIN employee manager ON manager.id = employee.manager_id`;
+	// let query = "SELECT * FROM role";
 
+	// connection.query(query, function (err, res) {
+	// 	if (err) throw err;
+
+	// 	let roleList = res.map(({ id, title, salary }) => ({
+	// 		value: id,
+	// 		title: `${title}`,
+	// 		salary: `${salary}`,
+	// 	}));
+	let query = "SELECT * FROM employee";
 	connection.query(query, function (err, res) {
 		if (err) throw err;
-
-		let roleList = res.map(({ id, title, salary }) => ({
+		let employeeList = res.map(({ id, first_name, last_name }) => ({
 			value: id,
-			title: `${title}`,
-			salary: `${salary}`,
+			first_name: `${first_name}`,
+			last_name: `${last_name}`,
 		}));
-		updateChoices(roleList);
-	});
-}
-function updateChoices(roleList) {
-	inquirer
-		.prompt([
+
+		inquirer.prompt([
 			{
 				type: "list",
-				name: "update_role",
+				name: "select_employee",
 				message: "Which Employee would you like to update?",
-				choices: roleList,
+				choices: employeeList,
 			},
-		])
-		.then((answer) => {
-			connection.query("UPDATE employee SET role_id = ? Where id = ?", {
-				role_id: answer.update_role,
-				employee_id: answer.employee_id,
-			});
-			let query = "SELECT * FROM role";
-			connection.query(query, function (err, res) {
-				if (err) throw err;
-				console.table("Updated Roles", res);
-				employeeSelector(updateChoices);
-			});
-		});
+			// {
+			// 	type: "list",
+			// 	name: "update_role",
+			// 	message: "Which Employee would you like to update?",
+			// 	choices: roleList,
+			// },
+		]);
+		console.log(employeeList);
+	});
+	// .then((answer) => {
+	// 	connection.query("UPDATE employee SET role_id = ? Where id = ?", {
+	// 		role_id: answer.update_role,
+	// 		employee_id: answer.employee_id,
+	// 	});
+	// 	let query = "SELECT * FROM role";
+	// 	connection.query(query, function (err, res) {
+	// 		if (err) throw err;
+	// 		console.table("Updated Roles", res);
+	// 		employeeSelector(updateChoices);
+	// 	});
+	// });
+	// });
 }
 
 // function deleteEmployee(){
