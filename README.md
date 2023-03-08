@@ -9,13 +9,12 @@
 - [Usage](#usage)
 - [Contribution](#contribution)
 - [Testing](#testing)
-- [Mockup](#mockup)
 - [Credits](#credits)
 - [License](#license)
 
 ## Description
 
-This project was the creation of application that allows a user to track the employees in a company. The application utilizes SQL to create, view, and update databases of departments, roles, and employees and connect them all together so that each employee is connected to a role and a department in which he/she works. The application can not be seen on a static webpage so a walkthrough video has been created to show functionality.
+This project was the creation of application that allows a user to track the employees in a company. The application utilizes SQL to create, view, and update databases of departments, roles, and employees and connect them all together so that each employee is connected to a role and a department in which he/she works. The application can not be seen on a static webpage so a walkthrough video has been created to show functionality. (Video Link)
 
 ## Acceptance Criteria
 
@@ -63,10 +62,6 @@ N/A
 ## Testing
 
 No testing was utilized for this project
-
-## Mockup
-
-![Alt text](./public/assets/images/Notes%20page.png)
 
 ## Credits
 
