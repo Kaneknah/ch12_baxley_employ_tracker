@@ -200,20 +200,18 @@ function addDepartment() {
 		.prompt([
 			{
 				type: "input",
-				name: "title",
+				name: "name",
 				message: "what is the name of the new Department?",
 			},
 		])
 		.then((answer) => {
-			connection.query("INSERT INTO role SET ?", {
-				title: answer.title,
-				salary: answer.salary,
-				department_id: answer.department_id,
+			connection.query("INSERT INTO department SET ?", {
+				name: answer.name,
 			});
-			let query = "SELECT * FROM role";
+			let query = "SELECT * FROM department";
 			connection.query(query, function (err, res) {
 				if (err) throw err;
-				console.table("Roles", res);
+				console.table("Department", res);
 				starterPrompt();
 			});
 		});
